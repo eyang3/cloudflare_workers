@@ -1,0 +1,5 @@
+name = "first_endpoint"
+main = "src/index.ts"
+compatibility_date = "2023-04-15"
+[vars]
+host = "aws.connect.psdb.cloud"
