@@ -1,5 +1,7 @@
 name = "first_endpoint"
 main = "src/index.ts"
 compatibility_date = "2023-04-15"
+route = { pattern = "eric-hwai-yu-yang3969.workers.dev/helloworld", zone_name = "eric-hwai-yu-yang3969.workers.dev" }
+
 [vars]
 host = "aws.connect.psdb.cloud"
