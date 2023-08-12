@@ -1,0 +1,17 @@
+curl 'http://localhost:5173/api/?action=login' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-type: application/json; charset=UTF-8' \
+  -H 'Cookie: __clerk_db_jwt=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXYiOiJkdmJfMlBqeTlHWnppSFFobTZBamNQdk92Y1pHTHluIn0.di4wN8MzJLd4GFKaww8uziwCcGiVB2ztk48qOtH0ewmW4xZmF--AQ_mCEPl3sA7YFi952RnueFI4JX-4KLpQWti3heCLBSgXRH8ehqED49LorrVVm-sJuVYtjX25SXJ_7peJVsbTtgPqzKLoS6pvsUsQkAFM4OlqBtezDKJess0YGkKB_KeYxpxeiyF4SQ1SKqhvxn381l01YReaqP-ScG7SUBDFn3ktiL5zXPUD8zQL3OXrIxyqbuh_vCCCvZDL1xyssk4e7N8l1Uti7h6BATKJEaq92xw8xyxcODbR6dHDbU9E9khJPRri4YYICKy5voB-GHscweRvBOE88hK7bA; __session=eyJhbGciOiJSUzI1NiIsImtpZCI6Imluc18yT2w2WTF2VjVib2tWa0VVR0Y3d3I5bm1uWlMiLCJ0eXAiOiJKV1QifQ.eyJhenAiOiJodHRwOi8vbG9jYWxob3N0OjUxNzMiLCJleHAiOjE2OTE4NzUxODQsImlhdCI6MTY5MTg3NTEyNCwiaXNzIjoiaHR0cHM6Ly9oZWxwZnVsLWxhYnJhZG9yLTY0LmNsZXJrLmFjY291bnRzLmRldiIsIm5iZiI6MTY5MTg3NTExNCwic2lkIjoic2Vzc18yVHR2S0JWRWZLckNGbzM3cVRBcEVidng3R2siLCJzdWIiOiJ1c2VyXzJUdHZLNUU5THh5NVRBeWpYekN5UHR4dGxobSJ9.tHktgj-uCYGN9_BnEDZLm6V7XdknhfAtfZt4rny3LltNiN_nEZYjtMzux0jIYgZG2tOVc6_WeKr9RpWl4IzcG_PzreiBt60lUckVkN7WdKxp9s8m-oXdlIyHlc4zzRn7OtYZcHBF7NtbXkM5Y6zXFTLLhw9hFQXZaylwsC7bA5o30FFaI4BNXNy2fOb03wv2cwve8KZf22of74_GoBhkA12Gnn7lNl6rDIOZzUmhcTR4z8Z5gQ7S2HbMZ8tkjt4sYHQycRrWUV6X7xFtQImtrViYGZvZVZzbHFp04oU5WUfGAFo2a2ycb0DR0Oyh5nJCDt78zyHUHRzjsqS0I1y8Cg; __client_uat=1691875124' \
+  -H 'Origin: http://localhost:5173' \
+  -H 'Referer: http://localhost:5173/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --data-raw '{"userid":"user_2TtvK5E9Lxy5TAyjXzCyPtxtlhm","userimg":"https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQWNIVHRmcG4wemtOV0xlVV8td1REckdRcm4xanRBNnYwX1Etc3JVVm9zSDBueGs1RW89czEwMDAtYyIsInMiOiJ6bCtvMGNTa2NSMTVreVRQVGU3TmZtN2cxeG5PMkU5S0JZQXpDMEgwejZrIn0","username":"Eric Yang"}' \
+  --compressed

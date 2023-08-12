@@ -6,8 +6,11 @@ create table if not exists usertable (
 
 create table if not exists locs (
     ipaddress cidr,
-    userid varchar(32)
+    userid varchar(32),
+    ban boolean,
+    unique(ipaddress, userid)
 );
+
 
 create index on locs(ipaddress);
 
