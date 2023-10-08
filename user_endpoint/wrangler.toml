@@ -1,3 +1,4 @@
 name = "user_endpoint"
 main = "src/index.ts"
 compatibility_date = "2023-05-29"
+node_compat = true
