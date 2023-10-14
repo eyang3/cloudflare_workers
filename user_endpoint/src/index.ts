@@ -82,10 +82,14 @@ export default {
 				console.log(userid);
 				const [user] = await sql`select * from usertable where userid = ${userid}`
 				if (user == null) {
-					console.log(userid);
-					const [response] = await sql(create_user, [userid, userid, userimg, username, ipaddress])
+					const [response] = await sql(create_user, [userid, userid, userimg, username, ipaddress]);
+					headers['Authorization'] = generate_token(jwt, userid, secret)
+				} else {
+					const [response] = await sql(append_ip), [userid, ipaddress]);
+					headers['Authorization'] = generate_token(jwt, userid, secret)
+
 				}
-				headers['Authorization'] = generate_token(jwt, userid, secret)
+
 
 			}
 			if (action[1] == 'create') {
