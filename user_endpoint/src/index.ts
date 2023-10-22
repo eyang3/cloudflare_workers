@@ -12,7 +12,7 @@ import { ErrorWithDiff } from "vitest";
 import { neon } from '@neondatabase/serverless';
 import { JsonResponse } from '../../shared/types';
 import { handleOptions } from '../../shared/cors_handler';
-import { generate_token } from '../../shared/auth';
+import { generate_token, read_token } from '../../shared/auth';
 import jwt from '@tsndr/cloudflare-worker-jwt'
 
 export interface Env {
@@ -41,9 +41,8 @@ let create_user = `
 
 let append_ip = `
 			UPDATE usertable
-			SET ipaddress = ipaddress | ARRAY[$2]
+			SET ipaddresses = array( select distinct * from unnest (ipaddresses || ARRAY[cast($2 as inet)]))
 			WHERE userid = $1
-
 `;
 
 
@@ -68,6 +67,7 @@ export default {
 
 			let payload = await request.json()
 			let ipaddress = request.headers.get("CF-Connecting-IP");
+			let auth_object = read_token(jwt, request.headers.get("Authorization"), secret);
 			let userid = payload["userid"];
 			let username = payload["username"]
 			let userimg = payload["userimg"]
@@ -79,26 +79,42 @@ export default {
 				return new Response(JSON.stringify(error), { headers: headers });
 			}
 			if (action[1] == 'login') {
-				console.log(userid);
 				const [user] = await sql`select * from usertable where userid = ${userid}`
 				if (user == null) {
 					const [response] = await sql(create_user, [userid, userid, userimg, username, ipaddress]);
 					headers['Authorization'] = generate_token(jwt, userid, secret)
 				} else {
-					const [response] = await sql(append_ip), [userid, ipaddress]);
+					const [response] = await sql(append_ip, [userid, ipaddress]);
 					headers['Authorization'] = generate_token(jwt, userid, secret)
 
 				}
+			}
+			if (action[1] == 'post') {
+				if (auth_object.error) {
+					let response: JsonResponse = {
+						response: "Error",
+						message: "You Must Login First"
+					}
+					return new Response(JSON.stringify(response), { headers: headers });
+				} else {
 
+				}
+			}
+			if (action[1] == 'unfollow') {
 
 			}
-			if (action[1] == 'create') {
+			if (action[1] == 'performance') {
 
 			}
-			if (action[1] == 'delete') {
+			if (action[1] == 'delete_post') {
 
 			}
-			console.log(headers)
+			if (action[1] == 'follow') {
+
+			}
+			if (action[1] == 'delete_user') {
+
+			}
 			return new Response(JSON.stringify("Hello"), { headers: headers });
 
 		}

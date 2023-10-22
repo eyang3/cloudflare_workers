@@ -4,3 +4,10 @@ export type JsonResponse = {
     payload?: any;
 }
 
+export type AuthObject = {
+    newToken: string | null;
+    userid: string | null;
+    expiration?: any;
+    error: boolean;
+}
+
