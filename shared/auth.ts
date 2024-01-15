@@ -12,12 +12,16 @@ export function read_token(jwt: any, token: string | null, secret: string): Auth
         error: false
     };
     try {
-        var decoded = jwt.verify(token, secret);
+        var decoded = jwt.decode(token, secret).payload;
+        console.log(token);
+        console.log(decoded)
+        console.log("Hello");
         ao.userid = decoded['userid'];
         ao.error = false;
         ao.expiration = decoded['exp'];
         ao.newToken = null;
     } catch (e) {
+        console.log(e);
         ao.error = true
     }
     return ao;

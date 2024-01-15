@@ -39,6 +39,11 @@ let create_user = `
 		);
 `
 
+let create_user_post = `
+	INSERT INTO posts(userid, post, hashtags, title) values ($1, $2, $3, $4)
+`;
+
+
 let append_ip = `
 			UPDATE usertable
 			SET ipaddresses = array( select distinct * from unnest (ipaddresses || ARRAY[cast($2 as inet)]))
@@ -54,8 +59,8 @@ export default {
 		ctx: ExecutionContext
 	): Promise<Response> {
 		let secret = env.jwt;
-
 		let headers = handleOptions(request);
+
 		if (request.method === "OPTIONS") {
 			return new Response(null, {
 				headers: headers,
@@ -68,6 +73,7 @@ export default {
 			let payload = await request.json()
 			let ipaddress = request.headers.get("CF-Connecting-IP");
 			let auth_object = read_token(jwt, request.headers.get("Authorization"), secret);
+			console.log(auth_object);
 			let userid = payload["userid"];
 			let username = payload["username"]
 			let userimg = payload["userimg"]
@@ -80,12 +86,13 @@ export default {
 			}
 			if (action[1] == 'login') {
 				const [user] = await sql`select * from usertable where userid = ${userid}`
+				console.log("WTF")
 				if (user == null) {
 					const [response] = await sql(create_user, [userid, userid, userimg, username, ipaddress]);
-					headers['Authorization'] = generate_token(jwt, userid, secret)
+					headers['Authorization'] = await generate_token(jwt, userid, secret)
 				} else {
 					const [response] = await sql(append_ip, [userid, ipaddress]);
-					headers['Authorization'] = generate_token(jwt, userid, secret)
+					headers['Authorization'] = await generate_token(jwt, userid, secret)
 
 				}
 			}
@@ -97,8 +104,14 @@ export default {
 					}
 					return new Response(JSON.stringify(response), { headers: headers });
 				} else {
+					var arr = payload.content.match(/#[A-Za-z0-9]*/g);
+					const [response] = await sql(create_user_post, [auth_object.userid, payload.content, arr, payload.title])
+					return new Response(JSON.stringify(response), { headers: headers });
 
 				}
+			}
+			if (action[1] == 'respond') {
+
 			}
 			if (action[1] == 'unfollow') {
 
@@ -115,6 +128,7 @@ export default {
 			if (action[1] == 'delete_user') {
 
 			}
+			console.log(headers);
 			return new Response(JSON.stringify("Hello"), { headers: headers });
 
 		}
